@@ -5,17 +5,14 @@ import cz.czechitas.java2webapps.lekce11.service.KnihaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * @author Filip Jirsák
  */
+// o format json se postara spring
 @RestController
 @RequestMapping("/api")
 public class KnihaController {
@@ -25,6 +22,7 @@ public class KnihaController {
   public KnihaController(KnihaService service) {
     this.service = service;
   }
+
 
   @GetMapping("/")
   public Page<Kniha> index(Pageable pageable) {
@@ -39,6 +37,21 @@ public class KnihaController {
   @PostMapping("/")
   public Kniha pridat(@RequestBody Kniha kniha) {
     return service.pridat(kniha);
+  }
+
+  @PutMapping("/{id}")
+  public Kniha upravit(@PathVariable long id, @RequestBody Kniha kniha) {
+   return service.upravit(kniha);
+  }
+
+  @PostMapping("/{id}/obnovit")
+  public Kniha obnovit(@PathVariable long id) {
+    return service.obnovit(id);
+  }
+
+  @DeleteMapping("/{id:[0-9]}")
+  public Kniha smazat(@PathVariable long id) {
+    return service.smazat(id);
   }
 
   @PostMapping("/batch")

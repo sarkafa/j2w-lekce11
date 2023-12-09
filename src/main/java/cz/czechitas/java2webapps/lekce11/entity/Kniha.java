@@ -29,7 +29,6 @@ public class Kniha {
 
   @Pattern(regexp = "[0-9]{13}|[0-9]{9}[0-9X]")
   private String isbn;
-
   @Version
   private int version;
 
